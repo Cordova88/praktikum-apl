@@ -1,0 +1,13 @@
+#include <iostream>
+using namespace std;   
+
+int main () {
+    string nama;
+    cout << "Masukan Nama Anda : ";
+    cin >> nama;
+    int umur;
+    cout
+    cin >> umur;
+    cout << "Halo saya" << nama << "Umur Saya" << umur <<endl;
+    return 0;
+}
