@@ -6,7 +6,7 @@ int main () {
     cout << "Masukan Nama Anda : ";
     cin >> nama;
     int umur;
-    cout
+    cout;
     cin >> umur;
     cout << "Halo saya" << nama << "Umur Saya" << umur <<endl;
     return 0;
