@@ -93,13 +93,13 @@ int main(){
                     cout << detik << " Detik = " << jam << " Jam" << endl;
                     cout << detik << " Detik = " << menit << " Menit" << endl;
                     cout << string(50, '=') << endl;
-                } else if (waktu < 0 ||waktu > 4) {
+                } else if (waktu < 0 || waktu > 4) {
                     cout << string(30, '+') << endl;
                     cout << "Pilihan Tidak Valid" << endl;
                     cout << string(30, '+') << endl;
                 }
             } while (waktu != 4);
-        } else if (pilihan < 0 ||pilihan > 2) {
+        } else if (pilihan < 0 || pilihan > 2) {
             cout << string(30, '+') << endl;
             cout << "Pilihan Tidak Valid" << endl;
             cout << string(30, '+') << endl;
