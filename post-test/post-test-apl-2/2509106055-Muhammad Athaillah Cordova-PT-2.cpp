@@ -2,6 +2,12 @@
 #include <cstdlib>
 using namespace std;
 
+#ifdef _WIN32
+    #define CLEAR system("cls")
+#else
+    #define CLEAR system("clear")
+#endif
+
 const int MAX_USER = 100;
 const int MAX_LEGENDS = 30;
 const int MAXLIST = 20;
@@ -16,8 +22,8 @@ struct karakter {
     string nama;
     string classs;
     string best_weapon;
-    string nama_asli;
-    string home_world;
+    float pick_rate;
+    float win_rate;
 };
 struct Tier_List {
     string judul;
@@ -31,20 +37,25 @@ int main() {
     karakter legend[MAX_LEGENDS];
     Tier_List tier_list[MAXLIST];
     int jumlahUser = 1;
-    int jumlahLegend = 0;
+    int jumlahLegend = 11;
     int jumlahtier = 0;;
     int percobaan = 3;
     int pilihan;
-    dataUser[0].usn = "admin";
-    dataUser[0].pw = "admin123";
-    dataUser[0].role = "admin";
+    dataUser[0] = {"admin", "admin123", "admin"};
+
+    legend[0] = {"Alter", "Skirmisher", "SMG", 14.5, 52};
+    legend[1] = {"Ash", "Skirmisher", "SMG", 0.4, 49.4};
+    legend[2] = {"Bangalore", "Assault", "SMG", 7.4, 49.1};
+    legend[3] = {"Fuse", "Assault", "SMG", 1.1, 48.8};
+    legend[4] = {"Horizon", "Skirmisher", "AR", 3.6, 47.5};
+    legend[5] = {"Loba", "Support", "AR", 2.8, 51.7};
+    legend[6] = {"Newcastle", "Support", "SG", 0.6, 48.1};
+    legend[7] = {"Seer", "Recon", "AR", 1.3, 48.7};
+    legend[8] = {"valkyrie", "Recon", "AR", 9.2, 54.4};
+    legend[9] = {"Wattson", "Controller", "SMG", 0.2, 51.7};
+    legend[10] = {"Wraith", "Skirmisher", "SMG", 0.6, 47.5};
 
     do {
-
-        cout << "Akun: \n";
-        for (int i = 0; i < jumlahUser; i++) {
-            cout << "Username: " << dataUser[i].usn << ", Password: " << dataUser[i].pw << ", Role: " << dataUser[i].role << "\n";
-        }
         cout << "\n===== MENU UTAMA =====\n";
         cout << "1. Login\n";
         cout << "2. Register\n";
@@ -78,7 +89,7 @@ int main() {
                                 cout << "Pilih menu: ";
                                 cin >> menu_admin;
                                 switch (menu_admin) {
-                                    case 1:
+                                    case 1: // Tambah Legend
                                         cout << "\nTambah Legend\n";
                                         cout << "Nama: ";
                                         cin >> legend[jumlahLegend].nama;
@@ -86,28 +97,29 @@ int main() {
                                         cin >> legend[jumlahLegend].classs;
                                         cout << "Best Weapon: ";
                                         cin >> legend[jumlahLegend].best_weapon;
-                                        cout << "Nama Asli: ";
-                                        cin >> legend[jumlahLegend].nama_asli;
-                                        cout << "Home World: ";
-                                        cin >> legend[jumlahLegend].home_world;
+                                        cout << "Pick Rate: ";
+                                        cin >> legend[jumlahLegend].pick_rate;
+                                        cout << "Win Rate: ";
+                                        cin >> legend[jumlahLegend].win_rate;
                                         jumlahLegend++;
                                         cout << "Legend berhasil ditambahkan!\n";
-                                        cin.get();
+                                        
                                     break;
 
-                                    case 2:
+                                    case 2: // Tampilkan Legend
                                         cout << "\nLegend\n";
+                                        if (jumlahLegend == 0) {
+                                            cout << "Belum ada legend yang dapat ditampilkan.\n";
+                                        } else {
+                                            cout << "| Nama      | Class     | Best Weapon   | Pick Rate     | Win Rate \n";
+                                            cout << "===================================================================\n";
                                         for (int i = 0; i < jumlahLegend; i++) {
-                                            cout << "Nama: " << legend[i].nama << "\n";
-                                            cout << "Class: " << legend[i].classs << "\n";
-                                            cout << "Best Weapon: " << legend[i].best_weapon << "\n";
-                                            cout << "Nama Asli: " << legend[i].nama_asli << "\n";
-                                            cout << "Home World: " << legend[i].home_world << "\n";
-                                            cout << "-------------------------\n";
-                                            cin.get();
+                                            cout << "| " << legend[i].nama << "      | " << legend[i].classs << "    | " << legend[i].best_weapon << "   | " << legend[i].pick_rate << "%" << "      | " << legend[i].win_rate << "%"  << "\n";
+                                        }
+                                        cout << "===================================================================\n";
                                         }
                                         break;
-                                    case 3:
+                                    case 3: // Edit Legend
                                         cout << "Edit Legend\n";
                                         if (jumlahLegend == 0) {
                                             cout << "Belum ada legend yang dapat diedit.\n";
@@ -130,25 +142,25 @@ int main() {
                                                 cin >> legend[index].classs;
                                                 cout << "Best Weapon: ";
                                                 cin >> legend[index].best_weapon;
-                                                cout << "Nama Asli: ";
-                                                cin >> legend[index].nama_asli;
-                                                cout << "Home World: ";
-                                                cin >> legend[index].home_world;
+                                                cout << "Pick Rate: ";
+                                                cin >> legend[index].pick_rate;
+                                                cout << "Win Rate: ";
+                                                cin >> legend[index].win_rate;
                                                 cout << "Legend berhasil diedit!\n";
                                             }
                                         }
                                         break;
-                                    case 4:
-                                        cout << "Fitur hapus legend belum tersedia.\n";
+                                    case 4: // Hapus Legend
+                                        cout << "Hapus Legend\n";
                                         if (jumlahLegend == 0) {
-                                            cout << "Belum ada legend yang dapat diedit.\n";
+                                            cout << "Belum ada legend yang dapat dihapus.\n";
                                         }else {
                                             cout << "Daftar Legend:\n";
                                             for (int i = 0; i < jumlahLegend; i++) {
                                                 cout << i + 1 << ". " << legend[i].nama << "\n";
                                             }
                                             int index;
-                                            cout << "Pilih nomor legend yang ingin diedit: ";
+                                            cout << "Pilih nomor legend yang ingin dihapus: ";
                                             cin >> index;
                                             if (index < 1 || index > jumlahLegend) {
                                                 cout << "Pilihan tidak valid.\n";
@@ -182,20 +194,21 @@ int main() {
                                 cout << "Pilih menu: ";
                                 cin >> menu_user;
                                 switch (menu_user) {
-                                    case 1:
+                                    case 1: // tampilkan legend
                                         
                                         cout << "\nLegend\n";
+                                        if (jumlahLegend == 0) {
+                                            cout << "Belum ada legend yang dapat ditampilkan.\n";
+                                        } else {
+                                            cout << "| Nama      | Class     | Best Weapon   | Pick Rate     | Win Rate \n";
+                                            cout << "===================================================================\n";
                                         for (int i = 0; i < jumlahLegend; i++) {
-                                            cout << "Nama: " << legend[i].nama << "\n";
-                                            cout << "Class: " << legend[i].classs << "\n";
-                                            cout << "Best Weapon: " << legend[i].best_weapon << "\n";
-                                            cout << "Nama Asli: " << legend[i].nama_asli << "\n";
-                                            cout << "Home World: " << legend[i].home_world << "\n";
-                                            cout << "-------------------------\n";
-                                            cin.get();
+                                            cout << "| " << legend[i].nama << "      | " << legend[i].classs << "    | " << legend[i].best_weapon << "   | " << legend[i].pick_rate << "%" << "      | " << legend[i].win_rate << "%"  << "\n";
+                                        }
+                                        cout << "===================================================================\n";
                                         }
                                         break;
-                                    case 2:
+                                    case 2: // buat tier list
                                         cout << "Buat Tier List\n";
                                         cout << "Masukkan judul tier list: ";
                                         cin >> ws;
@@ -208,7 +221,7 @@ int main() {
                                         jumlahtier++;
                                         cin.get();
                                         break;
-                                    case 3:
+                                    case 3: // lihat tier list
                                         cout << "Lihat Tier List\n";
                                         for (int i = 0; i < jumlahtier; i++) {
                                             cout << i + 1 << ". " << tier_list[i].judul << "\n";
@@ -224,7 +237,7 @@ int main() {
                                             cin.get();
                                         }
                                         break;
-                                    case 4:
+                                    case 4: // edit tier list
                                         cout << "Daftar Tier List.\n";
                                         for (int i = 0; i < jumlahtier; i++) {
                                                 cout << i + 1 << ". " << tier_list[i].judul << "\n";
@@ -241,7 +254,7 @@ int main() {
                                         cout << "\nTier list berhasil diedit\n";
                                         cin.get();
                                         break;
-                                    case 5:
+                                    case 5: // Hapus Tier List
                                         cout << "Daftar Tier List.\n";
                                         for (int i = 0; i < jumlahtier; i++) {
                                                 cout << i + 1 << ". " << tier_list[i].judul << "\n";
