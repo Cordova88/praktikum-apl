@@ -3,7 +3,8 @@
 using namespace std;
 
 const int MAX_USER = 100;
-const int MAX_LEGENDS = 50;
+const int MAX_LEGENDS = 30;
+const int MAXLIST = 20;
 
 struct User {
     string usn;
@@ -18,8 +19,9 @@ struct karakter {
     string nama_asli;
     string home_world;
 };
-struct tier_list {
+struct Tier_List {
     string judul;
+    char tier[MAX_LEGENDS];
 };
 
 
@@ -27,8 +29,10 @@ int main() {
 
     User dataUser[MAX_USER];
     karakter legend[MAX_LEGENDS];
+    Tier_List tier_list[MAXLIST];
     int jumlahUser = 1;
     int jumlahLegend = 0;
+    int jumlahtier = 0;;
     int percobaan = 3;
     int pilihan;
     dataUser[0].usn = "admin";
@@ -37,6 +41,10 @@ int main() {
 
     do {
 
+        cout << "Akun: \n";
+        for (int i = 0; i < jumlahUser; i++) {
+            cout << "Username: " << dataUser[i].usn << ", Password: " << dataUser[i].pw << ", Role: " << dataUser[i].role << "\n";
+        }
         cout << "\n===== MENU UTAMA =====\n";
         cout << "1. Login\n";
         cout << "2. Register\n";
@@ -161,6 +169,102 @@ int main() {
                                 }
                             } while (menu_admin != 5);
                         }
+                        else if(dataUser[i].role == "user") {
+                            int menu_user;
+                            do {
+                                cout << "\n===== MENU USER =====\n";
+                                cout << "1. Tampilkan Legend\n";
+                                cout << "2. Buat Tier List\n";
+                                cout << "3. Lihat Tier List\n";
+                                cout << "4. Edit Tier List\n";
+                                cout << "5. Hapus Tier List\n";
+                                cout << "6. LogOut\n";
+                                cout << "Pilih menu: ";
+                                cin >> menu_user;
+                                switch (menu_user) {
+                                    case 1:
+                                        
+                                        cout << "\nLegend\n";
+                                        for (int i = 0; i < jumlahLegend; i++) {
+                                            cout << "Nama: " << legend[i].nama << "\n";
+                                            cout << "Class: " << legend[i].classs << "\n";
+                                            cout << "Best Weapon: " << legend[i].best_weapon << "\n";
+                                            cout << "Nama Asli: " << legend[i].nama_asli << "\n";
+                                            cout << "Home World: " << legend[i].home_world << "\n";
+                                            cout << "-------------------------\n";
+                                            cin.get();
+                                        }
+                                        break;
+                                    case 2:
+                                        cout << "Buat Tier List\n";
+                                        cout << "Masukkan judul tier list: ";
+                                        cin >> ws;
+                                        getline(cin, tier_list[jumlahtier].judul);
+                                        for ( int i = 0; i < jumlahLegend; i++) {
+                                            cout << "Masukkan tier untuk legend " << legend[i].nama << " (S/A/B/C/D): ";
+                                            cin >> tier_list[jumlahtier].tier[i];
+                                        }
+                                        cout << "Tier list berhasil dibuat!\n";
+                                        jumlahtier++;
+                                        cin.get();
+                                        break;
+                                    case 3:
+                                        cout << "Lihat Tier List\n";
+                                        for (int i = 0; i < jumlahtier; i++) {
+                                            cout << i + 1 << ". " << tier_list[i].judul << "\n";
+                                        }
+                                        int index_list;
+                                        cout << "Pilih tier list yang ingin dilihat: ";
+                                        cin >> index_list;
+                                        index_list--;
+
+                                        cout << "\n Tier List: " << tier_list[index_list].judul << "\n";
+                                        for (int i = 0; i < jumlahLegend; i++) {
+                                            cout << "Legend: " << legend[i].nama << " - Tier: " << tier_list[index_list].tier[i] << "\n";
+                                            cin.get();
+                                        }
+                                        break;
+                                    case 4:
+                                        cout << "Daftar Tier List.\n";
+                                        for (int i = 0; i < jumlahtier; i++) {
+                                                cout << i + 1 << ". " << tier_list[i].judul << "\n";
+                                        }
+                                        int index_edit;
+                                        cout << "Pilih tier list yang ingin diedit: ";
+                                        cin >> index_edit;
+                                        index_edit--;
+
+                                        for (int i = 0; i < jumlahLegend; i++) {
+                                            cout << "Masukkan tier Baru " << legend[i].nama << " (S/A/B/C/D): ";
+                                            cin >> tier_list[index_edit].tier[i];
+                                        }
+                                        cout << "\nTier list berhasil diedit\n";
+                                        cin.get();
+                                        break;
+                                    case 5:
+                                        cout << "Daftar Tier List.\n";
+                                        for (int i = 0; i < jumlahtier; i++) {
+                                                cout << i + 1 << ". " << tier_list[i].judul << "\n";
+                                        }
+                                        int index_hapus;
+                                        cout << "Pilih tier list yang ingin dihapus: ";
+                                        cin >> index_hapus;
+                                        index_hapus--;
+
+                                        for (int i = index_hapus; i < jumlahtier - 1; i++) {
+                                            tier_list[i] = tier_list[i + 1];
+                                        }
+                                        jumlahtier--;
+                                        cout << "\nTier list berhasil dihapus\n";
+                                        cin.get();
+                                        break;
+
+                                    default:
+                                        cout << "Pilihan tidak valid. Silakan coba lagi.\n";
+                                }
+                            } while (menu_user != 6);
+                        }
+                        break;
                     }
                 }
 
