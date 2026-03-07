@@ -278,7 +278,7 @@ int main() {
 
                                         cout << "\nMasukkan tier baru setiap legend (S/A/B/C/D):\n";
                                         for (int i = 0; i < jumlahLegend; i++) {
-                                            cout << "Masukkan tier Baru " << legend[i].nama << setw(5) << ": ";
+                                            cout << "Masukka Tier baru " << setw(5) << left << legend[i].nama << ": ";
                                             cin >> tier_list[index_edit].tier[i];
                                                 }
                                             }
@@ -312,6 +312,9 @@ int main() {
                                         }
                                         jumlahtier--;
                                         cout << "\nTier list berhasil dihapus\n";
+                                        break;
+                                    case 6:
+                                        cout << "Logout berhasil. Kembali ke menu utama.\n";
                                         break;
 
                                     default:
