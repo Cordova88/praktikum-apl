@@ -312,7 +312,6 @@ int main() {
                                         }
                                         jumlahtier--;
                                         cout << "\nTier list berhasil dihapus\n";
-                                        cin.get();
                                         break;
 
                                     default:
