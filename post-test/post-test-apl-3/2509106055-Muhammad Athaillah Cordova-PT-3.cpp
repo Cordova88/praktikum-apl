@@ -1,6 +1,7 @@
 #include <iostream>
-#include <cstdlib>
+#include <stdlib.h>
 #include <iomanip>
+#include <conio.h>
 using namespace std;
 
 const int MAX_USER = 100;
@@ -25,9 +26,16 @@ struct Tier_List {
     char tier[MAX_LEGENDS];
 };
 
-    void RegisterUser(User dataUser[], int jumlahUser) {
+void pause() {
+    cout << "\nTekan Enter untuk melanjutkan...";
+    getche();
+    cout << endl;
+}
+
+    void RegisterUser(User dataUser[], int &jumlahUser) {
         if (jumlahUser >= MAX_USER) {
         cout << "Maaf, kapasitas pengguna sudah penuh.\n";
+        pause();
         return;
         }
 
@@ -41,12 +49,15 @@ struct Tier_List {
 
         if (role != "admin" && role != "user") {
             cout << "Role tidak valid. Harus 'admin' atau 'user'.\n";
+            pause();
             return;
         }
     dataUser[jumlahUser].usn = usn;
     dataUser[jumlahUser].pw = pw;
     dataUser[jumlahUser].role = role;
-    cout << "Selamat Registrasi berhasil! Silahkan Login\n"; 
+    jumlahUser++;
+    cout << "\nSelamat Registrasi berhasil! Silahkan Login\n";
+    pause();
 }
 
 int LoginUser(User dataUser[], int jumlahUser){
@@ -98,7 +109,7 @@ void menuUser() {
     
 }
 
-void TambahLegend(karakter legend[], int jumlahLegend) {
+void TambahLegend(karakter legend[], int &jumlahLegend) {
     cout << "\nTambah Legend\n";
     cout << "Nama: ";
     cin >> legend[jumlahLegend].nama;
@@ -110,13 +121,16 @@ void TambahLegend(karakter legend[], int jumlahLegend) {
     cin >> legend[jumlahLegend].pick_rate;
     cout << "Win Rate: ";
     cin >> legend[jumlahLegend].win_rate;
+    jumlahLegend++;
     cout << "Legend berhasil ditambahkan!\n";
+    pause();
 }
 
-void DaftarLegend(karakter legend[], int jumlahLegend) {
+void DaftarLegend(karakter legend[], int &jumlahLegend) {
     cout << "\nLegend\n";
     if (jumlahLegend == 0) {
         cout << "Belum ada legend yang dapat ditampilkan.\n";
+        pause();
     } else {
         cout << "\n Data Legend \n";
         cout << "|" << setw(12) << left << "Nama" << "|" << setw(12) << left << "Class" << "|" << setw(12) << left << "Best Weapon" << "|" << setw(10) << left << " Pick Rate" << "|" << setw(10) << left << " Win Rate |\n";
@@ -125,13 +139,15 @@ void DaftarLegend(karakter legend[], int jumlahLegend) {
         cout << "| " << setw(10) << left << legend[i].nama << " | " << setw(10) << left << legend[i].classs << " | " << setw(10) << left << legend[i].best_weapon << " | " << setw(0) << left << legend[i].pick_rate << setw(5)<< "%" << " | " << setw(0) << left << legend[i].win_rate << "% |"  << "\n";
     }
     cout << "==============================================================\n";
+    pause();
     }
 }
 
-void EditLegend(karakter legend[], int jumlahLegend) {
+void EditLegend(karakter legend[], int &jumlahLegend) {
     cout << "\nEdit Legend\n";
     if (jumlahLegend == 0) {
         cout << "Belum ada legend yang dapat diedit.\n";
+        pause();
     } else {
         cout << "\n Data Legend \n";
         cout << "|" << setw(12) << left << "Nama" << "|" << setw(12) << left << "Class" << "|" << setw(12) << left << "Best Weapon" << "|" << setw(10) << left << " Pick Rate" << "|" << setw(10) << left << " Win Rate |\n";
@@ -159,6 +175,7 @@ void EditLegend(karakter legend[], int jumlahLegend) {
             cout << "Win Rate: ";
             cin >> legend[index].win_rate;
             cout << "\nLegend berhasil diedit!\n";
+            pause();
         }
     }
 }   
@@ -167,6 +184,7 @@ void HapusLegend(karakter legend[], int &jumlahLegend) {
     cout << "\nHapus Legend\n";
     if (jumlahLegend == 0) {
         cout << "Belum ada legend yang dapat dihapus\n";
+        pause();
     } else {
         cout << "\n Data Legend \n";
         cout << "|" << setw(12) << left << "Nama" << "|" << setw(12) << left << "Class" << "|" << setw(12) << left << "Best Weapon" << "|" << setw(10) << left << " Pick Rate" << "|" << setw(10) << left << " Win Rate |\n";
@@ -184,12 +202,14 @@ void HapusLegend(karakter legend[], int &jumlahLegend) {
             for (int i = index - 1; i < jumlahLegend - 1; i++) {
                 legend[i] = legend[i + 1];
             }
+            jumlahLegend--;
             cout << "\nLegend berhasil dihapus!\n";
+            pause();
         }
     }
 }
 
-void BuatTier(Tier_List tier_list[], int jumlahtier, karakter legend[], int jumlahLegend){
+void BuatTier(Tier_List tier_list[], int &jumlahtier, karakter legend[], int jumlahLegend){
     cout << "\nBuat Tier List\n";
     cout << "Masukkan judul tier list: ";
     cin >> ws;
@@ -199,17 +219,20 @@ void BuatTier(Tier_List tier_list[], int jumlahtier, karakter legend[], int juml
         cout << "Tier legend " << setw(5) << left << legend[i].nama << ": ";
         cin >> tier_list[jumlahtier].tier[i];
     }
+    jumlahtier++;
     cout << "Tier list berhasil dibuat!\n";
+    pause();
 }
 
-void LihatTIer(Tier_List tier_list[], int jumlahtier, karakter legend[], int jumlahLegend){
+void LihatTIer(Tier_List tier_list[], int &jumlahtier, karakter legend[], int jumlahLegend){
     cout << "\nLihat Tier List\n";
     if (jumlahtier == 0) {
         cout << "Belum ada tier list yang dapat ditampilkan.\n";
+        pause();
         return;
     }else {
     for (int i = 0; i < jumlahtier; i++) {
-        cout << i + 1 << ". " << tier_list[i].judul;
+        cout << i + 1 << ". " << tier_list[i].judul << "\n";
     }
     cout << endl;
     int index_list;
@@ -217,6 +240,7 @@ void LihatTIer(Tier_List tier_list[], int jumlahtier, karakter legend[], int jum
     cin >> index_list;
     if (index_list < 1 || index_list > jumlahtier) {
         cout << "Pilihan tidak valid.\n";
+        pause();
         return;
     } else {
     index_list--;
@@ -225,18 +249,20 @@ void LihatTIer(Tier_List tier_list[], int jumlahtier, karakter legend[], int jum
     for (int i = 0; i < jumlahLegend; i++) {
         cout << setw(10) << left << legend[i].nama << " = " << setw(2)<< tier_list[index_list].tier[i] << "\n";
             }
+            pause();
         }
     }
 }
 
-void EditTier(Tier_List tier_list[], int jumlahtier, karakter legend[], int jumlahLegend){
+void EditTier(Tier_List tier_list[], int &jumlahtier, karakter legend[], int jumlahLegend){
     cout << "\nDaftar Tier List.\n";
     if (jumlahtier == 0) {
         cout << "Belum ada tier list yang dapat diedit.\n";
+        pause();
         return;
     } else {
     for (int i = 0; i < jumlahtier; i++) {
-            cout << i + 1 << ". " << tier_list[i].judul;
+            cout << i + 1 << ". " << tier_list[i].judul <<"\n";
     }
     cout << endl;
     int index_edit;
@@ -244,24 +270,27 @@ void EditTier(Tier_List tier_list[], int jumlahtier, karakter legend[], int juml
     cin >> index_edit;
     if (index_edit < 1 || index_edit > jumlahtier) {
         cout << "Pilihan tidak valid.\n";
+        pause();
         return;
     } else {
     index_edit--;
 
     cout << "\nMasukkan tier baru setiap legend (S/A/B/C/D):\n";
     for (int i = 0; i < jumlahLegend; i++) {
-        cout << "Masukka Tier baru " << setw(5) << left << legend[i].nama << ": ";
+        cout << "Masukkan Tier baru " << setw(5) << left << legend[i].nama << ": ";
         cin >> tier_list[index_edit].tier[i];
             }
         }
     }
     cout << "\nTier list berhasil diedit\n";
+    pause();
 }
 
-void HapusTier(Tier_List tier_list[], int jumlahtier, karakter legend[], int jumlahLegend){
+void HapusTier(Tier_List tier_list[], int &jumlahtier, karakter legend[], int jumlahLegend){
     cout << "\nDaftar Tier List.\n";
     if (jumlahtier == 0) {
         cout << "Belum ada tier list yang dapat dihapus.\n";
+        pause();
         return;
     } else {
     for (int i = 0; i < jumlahtier; i++) {
@@ -272,6 +301,7 @@ void HapusTier(Tier_List tier_list[], int jumlahtier, karakter legend[], int jum
     cin >> index_hapus;
     if (index_hapus < 1 || index_hapus > jumlahtier) {
         cout << "Pilihan tidak valid.\n";
+        pause();
         return;
     } else {
     index_hapus--;
@@ -281,11 +311,14 @@ void HapusTier(Tier_List tier_list[], int jumlahtier, karakter legend[], int jum
             }
         }
     }
+    jumlahtier--;
     cout << "\nTier list berhasil dihapus\n";
+    pause();
 }
 
 void logout() {
     cout << "Logout berhasil. Kembali ke menu utama.\n";
+    pause();
 }
 
 int main() {
@@ -323,6 +356,7 @@ int main() {
                 if(indexUser != -1){
                     cout << "\nLogin berhasil! Selamat datang, "
                         << dataUser[indexUser].usn << " (" << dataUser[indexUser].role << ")\n";
+                        pause();                       
 
                         if (dataUser[indexUser].role == "admin") {
                             int menu_admin;
@@ -332,7 +366,6 @@ int main() {
                                 switch (menu_admin) {
                                     case 1:
                                         TambahLegend(legend, jumlahLegend);
-                                        jumlahLegend++;
                                     break;
 
                                     case 2:
@@ -345,13 +378,13 @@ int main() {
 
                                     case 4:
                                         HapusLegend(legend, jumlahLegend);
-                                        jumlahLegend--;
                                         break;
                                     case 5:
                                         logout();
                                         break;
                                     default:
                                         cout << "Pilihan tidak valid. Silakan coba lagi.\n";
+                                        pause();
                                 }
                             } while (menu_admin != 5);
                         }
@@ -369,7 +402,6 @@ int main() {
 
                                     case 2:
                                         BuatTier(tier_list, jumlahtier, legend, jumlahLegend);
-                                        jumlahtier++;
                                         break;
 
                                     case 3: 
@@ -382,7 +414,6 @@ int main() {
 
                                     case 5:
                                         HapusTier(tier_list, jumlahtier, legend, jumlahLegend);
-                                        jumlahtier--;
                                         break;
                                     case 6:
                                         logout();
@@ -390,6 +421,7 @@ int main() {
 
                                     default:
                                         cout << "Pilihan tidak valid. Silakan coba lagi\n";
+                                        pause();
                                 }
                             } while (menu_user != 6);
                         }
@@ -400,6 +432,7 @@ int main() {
                 if (indexUser == -1) {
                     percobaan--;
                     cout << "Login gagal! Sisa percobaan: " << percobaan << "\n";
+                    pause();
                     if (percobaan == 0) {
                         cout << endl;
                         cout << "Anda telah kehabisan percobaan login. Program SELESAI.\n";
@@ -410,7 +443,6 @@ int main() {
                 break;
             case 2: {
                 RegisterUser(dataUser, jumlahUser);
-                jumlahUser++;
                 break;
             }
             case 3:
@@ -420,6 +452,7 @@ int main() {
                 break;
             default:
                 cout << "Pilihan tidak valid. Silakan coba lagi.\n";
+                pause();
         }
     } while (pilihan != 3);
 
