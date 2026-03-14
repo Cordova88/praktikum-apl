@@ -32,26 +32,26 @@ void pause() {
     cout << endl;
 }
 
-    void RegisterUser(User dataUser[], int &jumlahUser) {
-        if (jumlahUser >= MAX_USER) {
-        cout << "Maaf, kapasitas pengguna sudah penuh.\n";
+void RegisterUser(User dataUser[], int &jumlahUser) {
+    if (jumlahUser >= MAX_USER) {
+    cout << "Maaf, kapasitas pengguna sudah penuh.\n";
+    pause();
+    return;
+    }
+
+    string usn, pw, role;
+    cout << "Masukkan Username: ";
+    cin >> usn;
+    cout << "Masukkan Password: ";
+    cin >> pw;
+    cout << "Masukkan role (admin/user): ";
+    cin >> role;
+
+    if (role != "admin" && role != "user") {
+        cout << "Role tidak valid. Harus 'admin' atau 'user'.\n";
         pause();
         return;
-        }
-
-        string usn, pw, role;
-        cout << "Masukkan Username: ";
-        cin >> usn;
-        cout << "Masukkan Password: ";
-        cin >> pw;
-        cout << "Masukkan role (admin/user): ";
-        cin >> role;
-
-        if (role != "admin" && role != "user") {
-            cout << "Role tidak valid. Harus 'admin' atau 'user'.\n";
-            pause();
-            return;
-        }
+    }
     dataUser[jumlahUser].usn = usn;
     dataUser[jumlahUser].pw = pw;
     dataUser[jumlahUser].role = role;
@@ -225,7 +225,7 @@ void BuatTier(Tier_List tier_list[], int &jumlahtier, karakter legend[], int jum
 }
 
 void LihatTIer(Tier_List tier_list[], int &jumlahtier, karakter legend[], int jumlahLegend){
-    cout << "\nLihat Tier List\n";
+    cout << "\nDaftar Tier List\n";
     if (jumlahtier == 0) {
         cout << "Belum ada tier list yang dapat ditampilkan.\n";
         pause();
