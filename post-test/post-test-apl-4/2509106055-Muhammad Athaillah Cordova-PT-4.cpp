@@ -32,8 +32,8 @@ void pause() {
     cout << endl;
 }
 
-void RegisterUser(User dataUser[], int jumlahUser) {
-    if (jumlahUser >= MAX_USER) {
+void RegisterUser(User dataUser[], int *jumlahUser) {
+    if (*jumlahUser >= MAX_USER) {
     cout << "Maaf, kapasitas pengguna sudah penuh.\n";
     pause();
     return;
@@ -52,15 +52,15 @@ void RegisterUser(User dataUser[], int jumlahUser) {
         pause();
         return;
     }
-    dataUser[jumlahUser].usn = usn;
-    dataUser[jumlahUser].pw = pw;
-    dataUser[jumlahUser].role = role;
-    jumlahUser++;
+    dataUser[*jumlahUser].usn = usn;
+    dataUser[*jumlahUser].pw = pw;
+    dataUser[*jumlahUser].role = role;
+    (*jumlahUser)++;
     cout << "\nSelamat Registrasi berhasil! Silahkan Login\n";
     pause();
 }
 
-int LoginUser(User dataUser[], int jumlahUser){
+int LoginUser(User dataUser[], int *jumlahUser){
 
     string usn, pw;
 
@@ -70,7 +70,7 @@ int LoginUser(User dataUser[], int jumlahUser){
     cout << "Password: ";
     cin >> pw;
 
-    for(int i = 0; i < jumlahUser; i++){
+    for(int i = 0; i < *jumlahUser; i++){
         if(dataUser[i].usn == usn && dataUser[i].pw == pw){
             return i;
         }
@@ -109,19 +109,19 @@ void menuUser() {
     
 }
 
-void TambahLegend(karakter legend[], int &jumlahLegend) {
+void TambahLegend(karakter legend[], int *jumlahLegend) {
     cout << "\nTambah Legend\n";
     cout << "Nama: ";
-    cin >> legend[jumlahLegend].nama;
+    cin >> legend[*jumlahLegend].nama;
     cout << "Class: ";
-    cin >> legend[jumlahLegend].classs;
+    cin >> legend[*jumlahLegend].classs;
     cout << "Best Weapon: ";
-    cin >> legend[jumlahLegend].best_weapon;
+    cin >> legend[*jumlahLegend].best_weapon;
     cout << "Pick Rate: ";
-    cin >> legend[jumlahLegend].pick_rate;
+    cin >> legend[*jumlahLegend].pick_rate;
     cout << "Win Rate: ";
-    cin >> legend[jumlahLegend].win_rate;
-    jumlahLegend++;
+    cin >> legend[*jumlahLegend].win_rate;
+    (*jumlahLegend)++;
     cout << "Legend berhasil ditambahkan!\n";
     pause();
 }
@@ -143,23 +143,23 @@ void DaftarLegend(karakter legend[], int &jumlahLegend) {
     }
 }
 
-void EditLegend(karakter legend[], int &jumlahLegend) {
+void EditLegend(karakter legend[], int *jumlahLegend) {
     cout << "\nEdit Legend\n";
-    if (jumlahLegend == 0) {
+    if (*jumlahLegend == 0) {
         cout << "Belum ada legend yang dapat diedit.\n";
         pause();
     } else {
         cout << "\n Data Legend \n";
         cout << "|" << setw(12) << left << "Nama" << "|" << setw(12) << left << "Class" << "|" << setw(12) << left << "Best Weapon" << "|" << setw(10) << left << " Pick Rate" << "|" << setw(10) << left << " Win Rate |\n";
         cout << "==============================================================\n";
-    for (int i = 0; i < jumlahLegend; i++) {
+    for (int i = 0; i < *jumlahLegend; i++) {
         cout << "| " << setw(10) << left << legend[i].nama << " | " << setw(10) << left << legend[i].classs << " | " << setw(10) << left << legend[i].best_weapon << " | " << setw(0) << left << legend[i].pick_rate << setw(5)<< "%" << " | " << setw(0) << left << legend[i].win_rate << "% |"  << "\n";
     }
     cout << "==============================================================\n";
         int index;
         cout << "\nPilih nomor legend yang ingin diedit: ";
         cin >> index;
-        if (index < 1 || index > jumlahLegend) {
+        if (index < 1 || index > *jumlahLegend) {
             cout << "Pilihan tidak valid.\n";
         } else {
             index--;
@@ -180,46 +180,46 @@ void EditLegend(karakter legend[], int &jumlahLegend) {
     }
 }   
 
-void HapusLegend(karakter legend[], int &jumlahLegend) {
+void HapusLegend(karakter legend[], int *jumlahLegend) {
     cout << "\nHapus Legend\n";
-    if (jumlahLegend == 0) {
+    if (*jumlahLegend == 0) {
         cout << "Belum ada legend yang dapat dihapus\n";
         pause();
     } else {
         cout << "\n Data Legend \n";
         cout << "|" << setw(12) << left << "Nama" << "|" << setw(12) << left << "Class" << "|" << setw(12) << left << "Best Weapon" << "|" << setw(10) << left << " Pick Rate" << "|" << setw(10) << left << " Win Rate |\n";
         cout << "==============================================================\n";
-    for (int i = 0; i < jumlahLegend; i++) {
+    for (int i = 0; i < *jumlahLegend; i++) {
         cout << "| " << setw(10) << left << legend[i].nama << " | " << setw(10) << left << legend[i].classs << " | " << setw(10) << left << legend[i].best_weapon << " | " << setw(0) << left << legend[i].pick_rate << setw(5)<< "%" << " | " << setw(0) << left << legend[i].win_rate << "% |"  << "\n";
     }
     cout << "==============================================================\n";
         int index;
         cout << "\nPilih nomor legend yang ingin dihapus: ";
         cin >> index;
-        if (index < 1 || index > jumlahLegend) {
+        if (index < 1 || index > *jumlahLegend) {
             cout << "Pilihan tidak valid.\n";
         } else {
-            for (int i = index - 1; i < jumlahLegend - 1; i++) {
+            for (int i = index - 1; i < *jumlahLegend - 1; i++) {
                 legend[i] = legend[i + 1];
             }
-            jumlahLegend--;
+            (*jumlahLegend)--;
             cout << "\nLegend berhasil dihapus!\n";
             pause();
         }
     }
 }
 
-void BuatTier(Tier_List tier_list[], int &jumlahtier, karakter legend[], int jumlahLegend){
+void BuatTier(Tier_List tier_list[], int *jumlahtier, karakter legend[], int jumlahLegend){
     cout << "\nBuat Tier List\n";
     cout << "Masukkan judul tier list: ";
     cin >> ws;
-    getline(cin, tier_list[jumlahtier].judul);
+    getline(cin, tier_list[*jumlahtier].judul);
     cout << "\nMasukkan tier setiap legend (S/A/B/C/D):\n";
     for ( int i = 0; i < jumlahLegend; i++) {
         cout << "Tier legend " << setw(5) << left << legend[i].nama << ": ";
-        cin >> tier_list[jumlahtier].tier[i];
+        cin >> tier_list[*jumlahtier].tier[i];
     }
-    jumlahtier++;
+    (*jumlahtier)++;
     cout << "Tier list berhasil dibuat!\n";
     pause();
 }
@@ -254,21 +254,21 @@ void LihatTIer(Tier_List tier_list[], int &jumlahtier, karakter legend[], int ju
     }
 }
 
-void EditTier(Tier_List tier_list[], int &jumlahtier, karakter legend[], int jumlahLegend){
+void EditTier(Tier_List tier_list[], int *jumlahtier, karakter legend[], int jumlahLegend){
     cout << "\nDaftar Tier List.\n";
-    if (jumlahtier == 0) {
+    if (*jumlahtier == 0) {
         cout << "Belum ada tier list yang dapat diedit.\n";
         pause();
         return;
     } else {
-    for (int i = 0; i < jumlahtier; i++) {
+    for (int i = 0; i < *jumlahtier; i++) {
             cout << i + 1 << ". " << tier_list[i].judul <<"\n";
     }
     cout << endl;
     int index_edit;
     cout << "\nPilih tier list yang ingin diedit: ";
     cin >> index_edit;
-    if (index_edit < 1 || index_edit > jumlahtier) {
+    if (index_edit < 1 || index_edit > *jumlahtier) {
         cout << "Pilihan tidak valid.\n";
         pause();
         return;
@@ -286,32 +286,32 @@ void EditTier(Tier_List tier_list[], int &jumlahtier, karakter legend[], int jum
     pause();
 }
 
-void HapusTier(Tier_List tier_list[], int &jumlahtier, karakter legend[], int jumlahLegend){
+void HapusTier(Tier_List tier_list[], int *jumlahtier, karakter legend[], int jumlahLegend){
     cout << "\nDaftar Tier List.\n";
-    if (jumlahtier == 0) {
+    if (*jumlahtier == 0) {
         cout << "Belum ada tier list yang dapat dihapus.\n";
         pause();
         return;
     } else {
-    for (int i = 0; i < jumlahtier; i++) {
+    for (int i = 0; i < *jumlahtier; i++) {
             cout << i + 1 << ". " << tier_list[i].judul << "\n";
     }
     int index_hapus;
     cout << "\nPilih tier list yang ingin dihapus: ";
     cin >> index_hapus;
-    if (index_hapus < 1 || index_hapus > jumlahtier) {
+    if (index_hapus < 1 || index_hapus > *jumlahtier) {
         cout << "Pilihan tidak valid.\n";
         pause();
         return;
     } else {
     index_hapus--;
 
-    for (int i = index_hapus; i < jumlahtier - 1; i++) {
+    for (int i = index_hapus; i < *jumlahtier - 1; i++) {
         tier_list[i] = tier_list[i + 1];
             }
         }
     }
-    jumlahtier--;
+    (*jumlahtier)--;
     cout << "\nTier list berhasil dihapus\n";
     pause();
 }
@@ -352,7 +352,7 @@ int main() {
 
         switch (pilihan) {
             case 1: {
-                int indexUser = LoginUser(dataUser, jumlahUser);
+                indexUser = LoginUser(dataUser, &jumlahUser);
                 if(indexUser != -1){
                     cout << "\nLogin berhasil! Selamat datang, "
                         << dataUser[indexUser].usn << " (" << dataUser[indexUser].role << ")\n";
@@ -365,7 +365,7 @@ int main() {
                                 cin >> menu_admin;
                                 switch (menu_admin) {
                                     case 1:
-                                        TambahLegend(legend, jumlahLegend);
+                                        TambahLegend(legend, &jumlahLegend);
                                     break;
 
                                     case 2:
@@ -373,11 +373,11 @@ int main() {
                                         break;
 
                                     case 3:
-                                        EditLegend(legend, jumlahLegend);
+                                        EditLegend(legend, &jumlahLegend);
                                         break;
 
                                     case 4:
-                                        HapusLegend(legend, jumlahLegend);
+                                        HapusLegend(legend, &jumlahLegend);
                                         break;
                                     case 5:
                                         logout();
@@ -401,7 +401,7 @@ int main() {
                                         break;
 
                                     case 2:
-                                        BuatTier(tier_list, jumlahtier, legend, jumlahLegend);
+                                        BuatTier(tier_list, &jumlahtier, legend, jumlahLegend);
                                         break;
 
                                     case 3: 
@@ -409,11 +409,11 @@ int main() {
                                         break;
 
                                     case 4:
-                                        EditTier(tier_list, jumlahtier, legend, jumlahLegend);
+                                        EditTier(tier_list, &jumlahtier, legend, jumlahLegend);
                                         break;
 
                                     case 5:
-                                        HapusTier(tier_list, jumlahtier, legend, jumlahLegend);
+                                        HapusTier(tier_list, &jumlahtier, legend, jumlahLegend);
                                         break;
                                     case 6:
                                         logout();
@@ -442,7 +442,7 @@ int main() {
                 }
                 break;
             case 2: {
-                RegisterUser(dataUser, jumlahUser);
+                RegisterUser(dataUser, &jumlahUser);
                 break;
             }
             case 3:
