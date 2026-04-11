@@ -83,7 +83,7 @@ void menu_login() {
     cout << "\n===== MENU LOGIN =====\n";
     cout << "1. Login\n";
     cout << "2. Register\n";
-    cout << "3. Keluar\n";
+    cout << "0. Keluar\n";
     cout << "Pilih menu: ";
 }
 
@@ -93,18 +93,24 @@ void menuAdmin() {
     cout << "2. Lihat Daftar legend\n";
     cout << "3. Edit Legend\n";
     cout << "4. Hapus Legend\n";
-    cout << "5. Logout\n";
+    cout << "5. Urutkan Class Legend\n";
+    cout << "6. Urutkan Pick Rate Legend\n";
+    cout << "7. Urutkan Win Rate Legend\n";
+    cout << "0. Logout\n";
     cout << "Pilih menu: ";
 }
 
 void menuUser() {
     cout << "\n===== MENU USER =====\n";
     cout << "1. Lihat Daftar Legend\n";
-    cout << "2. Buat Tier List\n";
-    cout << "3. Lihat Tier List\n";
-    cout << "4. Edit Tier List\n";
-    cout << "5. Hapus Tier List\n";
-    cout << "6. Logout\n";
+    cout << "2. Urutkan Class Legend\n";
+    cout << "3. Urutkan Pick Rate Legend\n";
+    cout << "4. Urutkan Win Rate Legend\n";
+    cout << "5. Buat Tier List\n";
+    cout << "6. Lihat Tier List\n";
+    cout << "7. Edit Tier List\n";
+    cout << "8. Hapus Tier List\n";
+    cout << "0. Logout\n";
     cout << "Pilih menu: ";
     
 }
@@ -316,6 +322,46 @@ void HapusTier(Tier_List tier_list[], int *jumlahtier, karakter legend[], int ju
     pause();
 }
 
+void sortClass(karakter legend[], int jumlahLegend) {
+    for(int i = 0; i < jumlahLegend - 1; i++) {
+        for(int j = 0; j < jumlahLegend - i - 1; j++) {
+            if(legend[j].classs > legend[j + 1].classs) {
+                swap(legend[j], legend[j + 1]);
+            }
+        }
+    }
+    cout << "\nLegend berhasil diurutkan berdasarkan Class!\n";
+    pause();
+}
+
+void sortPickrate(karakter legend[], int jumlahLegend) {
+    for(int i = 0; i < jumlahLegend - 1; i++) {
+        int max = i;
+        for(int j = i + 1; j < jumlahLegend; j++) {
+            if(legend[j].pick_rate > legend[max].pick_rate) {
+                max = j;
+            }
+        }
+        swap(legend[max], legend[i]);
+    }
+    cout << "\nLegend berhasil diurutkan berdasarkan Pick Rate tertinggi!\n";
+    pause();
+}
+
+void sortWinRate(karakter legend[], int jumlahLegend) {
+    for(int i =  0; i < jumlahLegend; i++){
+        karakter key = legend[i];
+        int j = i - 1;
+        while(j >= 0 && legend[j].win_rate < key.win_rate) {
+            swap(legend[j + 1], legend[j]);
+            j--;
+        }
+        legend[j + 1] = key;
+    }
+    cout << "\nLegend berhasil diurutkan berdasarkan Win Rate tertinggi!\n";
+    pause();
+}
+
 void logout() {
     cout << "Logout berhasil. Kembali ke menu utama.\n";
     pause();
@@ -379,14 +425,27 @@ int main() {
                                     case 4:
                                         HapusLegend(legend, &jumlahLegend);
                                         break;
+
                                     case 5:
+                                        sortClass(legend, jumlahLegend);
+                                        break;
+
+                                    case 6:
+                                        sortPickrate(legend, jumlahLegend);
+                                        break;
+
+                                    case 7:
+                                        sortWinRate(legend, jumlahLegend);
+                                        break;
+
+                                    case 0:
                                         logout();
                                         break;
                                     default:
                                         cout << "Pilihan tidak valid. Silakan coba lagi.\n";
                                         pause();
                                 }
-                            } while (menu_admin != 5);
+                            } while (menu_admin != 0);
                         }
 
 
@@ -401,21 +460,33 @@ int main() {
                                         break;
 
                                     case 2:
-                                        BuatTier(tier_list, &jumlahtier, legend, jumlahLegend);
+                                        sortClass(legend, jumlahLegend);
                                         break;
 
-                                    case 3: 
-                                        LihatTIer(tier_list, jumlahtier, legend, jumlahLegend);
+                                    case 3:
+                                        sortPickrate(legend, jumlahLegend);
                                         break;
 
                                     case 4:
-                                        EditTier(tier_list, &jumlahtier, legend, jumlahLegend);
+                                        sortWinRate(legend, jumlahLegend);
                                         break;
 
                                     case 5:
+                                        BuatTier(tier_list, &jumlahtier, legend, jumlahLegend);
+                                        break;
+
+                                    case 6: 
+                                        LihatTIer(tier_list, jumlahtier, legend, jumlahLegend);
+                                        break;
+
+                                    case 7:
+                                        EditTier(tier_list, &jumlahtier, legend, jumlahLegend);
+                                        break;
+
+                                    case 8:
                                         HapusTier(tier_list, &jumlahtier, legend, jumlahLegend);
                                         break;
-                                    case 6:
+                                    case 0:
                                         logout();
                                         break;
 
@@ -423,7 +494,7 @@ int main() {
                                         cout << "Pilihan tidak valid. Silakan coba lagi\n";
                                         pause();
                                 }
-                            } while (menu_user != 6);
+                            } while (menu_user != 0);
                         }
                         break;
                     }
@@ -445,7 +516,7 @@ int main() {
                 RegisterUser(dataUser, &jumlahUser);
                 break;
             }
-            case 3:
+            case 0:
                 cout << endl;
                 cout << "Terima kasih telah menggunakan program ini. Sampai jumpa!\n";
                 cout << endl;
@@ -454,7 +525,7 @@ int main() {
                 cout << "Pilihan tidak valid. Silakan coba lagi.\n";
                 pause();
         }
-    } while (pilihan != 3);
+    } while (pilihan != 0);
 
     return 0;
 }
