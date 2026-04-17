@@ -15,6 +15,7 @@ struct User {
 };
 
 struct karakter {
+    int id;
     string nama;
     string classs;
     string best_weapon;
@@ -96,6 +97,8 @@ void menuAdmin() {
     cout << "5. Urutkan Class Legend\n";
     cout << "6. Urutkan Pick Rate Legend\n";
     cout << "7. Urutkan Win Rate Legend\n";
+    cout << "8. Cari ID Legend\n";
+    cout << "9. Cari Nama Legend\n";
     cout << "0. Logout\n";
     cout << "Pilih menu: ";
 }
@@ -106,13 +109,14 @@ void menuUser() {
     cout << "2. Urutkan Class Legend\n";
     cout << "3. Urutkan Pick Rate Legend\n";
     cout << "4. Urutkan Win Rate Legend\n";
-    cout << "5. Buat Tier List\n";
-    cout << "6. Lihat Tier List\n";
-    cout << "7. Edit Tier List\n";
-    cout << "8. Hapus Tier List\n";
+    cout << "5. Cari ID Legend\n";
+    cout << "6. Cari Nama Legend\n";
+    cout << "7. Buat Tier List\n";
+    cout << "8. Lihat Tier List\n";
+    cout << "9. Edit Tier List\n";
+    cout << "10. Hapus Tier List\n";
     cout << "0. Logout\n";
     cout << "Pilih menu: ";
-    
 }
 
 void TambahLegend(karakter legend[], int *jumlahLegend) {
@@ -362,6 +366,58 @@ void sortWinRate(karakter legend[], int jumlahLegend) {
     pause();
 }
 
+void searchid(karakter Legend[], int jumlahLegend){
+    int cari_id;
+    cout << "\nMasukkan ID legend yang ingin dicari: ";
+    cin >> cari_id;
+
+    int low = 0; 
+    int high = jumlahLegend - 1;
+
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+        if (Legend[mid].id == cari_id) {
+            cout << "\nLegend ditemukan:\n";
+            cout << "ID: " << Legend[mid].id << "\n";
+            cout << "Nama: " << Legend[mid].nama << "\n";
+            cout << "Class: " << Legend[mid].classs << "\n";
+            cout << "Best Weapon: " << Legend[mid].best_weapon << "\n";
+            cout << "Pick Rate: " << Legend[mid].pick_rate << "%\n";
+            cout << "Win Rate: " << Legend[mid].win_rate << "%\n";
+            pause();
+            return;
+        } else if (Legend[mid].id < cari_id) {
+            low = mid + 1;
+        } else {
+            high = mid - 1;
+        }
+    }
+    cout << "\nID Legend tidak ditemukan.\n";
+    pause();
+}
+
+void searchnama(karakter Legend[], int jumlahLegend){
+    string cari_nama;
+    cout << "\nMasukkan nama legend yang ingin dicari: ";
+    cin >> cari_nama;
+
+    for (int i = 0; i < jumlahLegend; i++) {
+        if (Legend[i].nama == cari_nama) {
+            cout << "\nLegend ditemukan:\n";
+            cout << "ID: " << Legend[i].id << "\n";
+            cout << "Nama: " << Legend[i].nama << "\n";
+            cout << "Class: " << Legend[i].classs << "\n";
+            cout << "Best Weapon: " << Legend[i].best_weapon << "\n";
+            cout << "Pick Rate: " << Legend[i].pick_rate << "%\n";
+            cout << "Win Rate: " << Legend[i].win_rate << "%\n";
+            pause();
+            return;
+        }
+    }
+    cout << "\nLegend tidak ditemukan.\n";
+    pause();
+}
+
 void logout() {
     cout << "Logout berhasil. Kembali ke menu utama.\n";
     pause();
@@ -380,17 +436,17 @@ int main() {
     int indexUser = -1 ;
     dataUser[0] = {"admin", "admin123", "admin"};
 
-    legend[0] = {"Alter", "Skirmisher", "SMG", 14.5, 52};
-    legend[1] = {"Ash", "Skirmisher", "SMG", 0.4, 49.4};
-    legend[2] = {"Bangalore", "Assault", "SMG", 7.4, 49.1};
-    legend[3] = {"Fuse", "Assault", "SMG", 1.1, 48.8};
-    legend[4] = {"Horizon", "Skirmisher", "AR", 3.6, 47.5};
-    legend[5] = {"Loba", "Support", "AR", 2.8, 51.7};
-    legend[6] = {"Newcastle", "Support", "SG", 0.6, 48.1};
-    legend[7] = {"Seer", "Recon", "AR", 1.3, 48.7};
-    legend[8] = {"valkyrie", "Recon", "AR", 9.2, 54.4};
-    legend[9] = {"Wattson", "Controller", "SMG", 0.2, 51.7};
-    legend[10] = {"Wraith", "Skirmisher", "SMG", 0.6, 47.5};
+    legend[0] = {101, "Alter", "Skirmisher", "SMG", 14.5, 52};
+    legend[1] = {102, "Ash", "Skirmisher", "SMG", 0.4, 49.4};
+    legend[2] = {103, "Bangalore", "Assault", "SMG", 7.4, 49.1};
+    legend[3] = {104, "Fuse", "Assault", "SMG", 1.1, 48.8};
+    legend[4] = {105, "Horizon", "Skirmisher", "AR", 3.6, 47.5};
+    legend[5] = {106, "Loba", "Support", "AR", 2.8, 51.7};
+    legend[6] = {107, "Newcastle", "Support", "SG", 0.6, 48.1};
+    legend[7] = {108, "Seer", "Recon", "AR", 1.3, 48.7};
+    legend[8] = {109, "valkyrie", "Recon", "AR", 9.2, 54.4};
+    legend[9] = {1010,"Wattson", "Controller", "SMG", 0.2, 51.7};
+    legend[10] = {1011,"Wraith", "Skirmisher", "SMG", 0.6, 47.5};
 
     do {
         menu_login();
@@ -438,6 +494,14 @@ int main() {
                                         sortWinRate(legend, jumlahLegend);
                                         break;
 
+                                    case 8:
+                                        searchid(legend, jumlahLegend);
+                                        break;
+
+                                    case 9:
+                                        searchnama(legend, jumlahLegend);
+                                        break;
+
                                     case 0:
                                         logout();
                                         break;
@@ -472,18 +536,26 @@ int main() {
                                         break;
 
                                     case 5:
-                                        BuatTier(tier_list, &jumlahtier, legend, jumlahLegend);
+                                        searchid(legend, jumlahLegend);
                                         break;
 
-                                    case 6: 
-                                        LihatTIer(tier_list, jumlahtier, legend, jumlahLegend);
+                                    case 6:
+                                        searchnama(legend, jumlahLegend);
                                         break;
 
                                     case 7:
+                                        BuatTier(tier_list, &jumlahtier, legend, jumlahLegend);
+                                        break;
+
+                                    case 8: 
+                                        LihatTIer(tier_list, jumlahtier, legend, jumlahLegend);
+                                        break;
+
+                                    case 9:
                                         EditTier(tier_list, &jumlahtier, legend, jumlahLegend);
                                         break;
 
-                                    case 8:
+                                    case 10:
                                         HapusTier(tier_list, &jumlahtier, legend, jumlahLegend);
                                         break;
                                     case 0:
