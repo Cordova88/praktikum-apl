@@ -392,7 +392,7 @@ void searchid(karakter Legend[], int jumlahLegend){
             high = mid - 1;
         }
     }
-    cout << "\nID Legend tidak ditemukan.\n";
+    cout << "\nID Legend " << cari_id << " tidak ditemukan.\n";
     pause();
 }
 
@@ -414,7 +414,7 @@ void searchnama(karakter Legend[], int jumlahLegend){
             return;
         }
     }
-    cout << "\nLegend tidak ditemukan.\n";
+    cout << "\nLegend " << cari_nama << " tidak ditemukan.\n";
     pause();
 }
 
