@@ -512,7 +512,6 @@ int main() {
                             } while (menu_admin != 0);
                         }
 
-
                         else if(dataUser[indexUser].role == "user") {
                             int menu_user;
                             do {
