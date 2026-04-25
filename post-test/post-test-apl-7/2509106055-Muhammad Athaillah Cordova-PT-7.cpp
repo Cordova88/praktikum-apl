@@ -149,7 +149,7 @@ void TambahLegend(karakter legend[], int *jumlahLegend) {
         cout<<"Win Rate: ";
         cin>>legend[*jumlahLegend].win_rate;
 
-        if(cin.fail()) throw invalid_argument("\nHarus angka\n!");
+        if(cin.fail()) throw invalid_argument("\nHarus angka!\n");
         if(legend[*jumlahLegend].win_rate <0 || legend[*jumlahLegend].win_rate >100)
             throw invalid_argument("\nharus dibawah 100!\n");
 
@@ -213,10 +213,10 @@ void EditLegend(karakter legend[], int *jumlahLegend) {
             while(true){
             try{
                 cout<<"Pick Rate: ";
-                cin>>legend[*jumlahLegend].pick_rate;
+                cin>>legend[index].pick_rate;
 
                 if(cin.fail()) throw invalid_argument("\nHarus angka!\n");
-                if(legend[*jumlahLegend].pick_rate <0 || legend[*jumlahLegend].pick_rate >100)
+                if(legend[index].pick_rate <0 || legend[index].pick_rate >100)
                     throw invalid_argument("\nharus dibawah 100!\n");
             break;
             }
@@ -229,10 +229,10 @@ void EditLegend(karakter legend[], int *jumlahLegend) {
             while(true){
             try{
                 cout<<"Win Rate: ";
-                cin>>legend[*jumlahLegend].win_rate;
+                cin>>legend[index].win_rate;
         
-                if(cin.fail()) throw invalid_argument("\nHarus angka\n!");
-                if(legend[*jumlahLegend].win_rate <0 || legend[*jumlahLegend].win_rate >100)
+                if(cin.fail()) throw invalid_argument("\nHarus angka!\n");
+                if(legend[index].win_rate <0 || legend[index].win_rate >100)
                     throw invalid_argument("\nharus dibawah 100!\n");
             break;
     }
